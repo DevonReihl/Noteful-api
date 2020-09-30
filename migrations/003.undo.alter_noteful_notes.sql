@@ -1,4 +1,4 @@
 ALTER TABLE noteful_notes
-DROP COLUMN folderId;
+DROP COLUMN foldersId;
 
 DROP TABLE IF EXISTS noteful_notes;

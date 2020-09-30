@@ -1,1 +1,1 @@
-TRUNCATE folders;
+TRUNCATE noteful_folders;

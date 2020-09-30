@@ -1,1 +1,1 @@
-TRUNCATE notes;
+TRUNCATE noteful_notes;
