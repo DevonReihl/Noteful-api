@@ -1,14 +1,2 @@
-{"message":"Unauthorized request to path: /notes","level":"error"}
-{"message":"Unauthorized request to path: /api/notes","level":"error"}
-{"message":"Unauthorized request to path: /api/notes","level":"error"}
-{"message":"Unauthorized request to path: /api/folders","level":"error"}
-{"message":"Unauthorized request to path: /api/folders","level":"error"}
-{"message":"Unauthorized request to path: /api/folders","level":"error"}
-{"message":"Unauthorized request to path: /api/notes","level":"error"}
-{"message":"Unauthorized request to path: /api/notes","level":"error"}
-{"message":"Unauthorized request to path: /api/notes","level":"error"}
-{"message":"Unauthorized request to path: /api/notes/3","level":"error"}
-{"message":"Unauthorized request to path: /api/notes/3","level":"error"}
-{"message":"Unauthorized request to path: /api/notes","level":"error"}
-{"message":"Unauthorized request to path: /api/notes","level":"error"}
-{"message":"Unauthorized request to path: /api/notes","level":"error"}
+{"message":"name is not defined","level":"error"}
+{"message":"insert into \"noteful_notes\" (\"content\", \"folderId\", \"note_name\") values ($1, DEFAULT, $2) returning * - column \"folderId\" of relation \"noteful_notes\" does not exist","level":"error"}

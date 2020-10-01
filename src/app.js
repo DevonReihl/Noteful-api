@@ -4,25 +4,25 @@ const morgan = require('morgan')
 const cors = require('cors')
 const helmet = require('helmet')
 const { NODE_ENV } = require('./config')
-const validateBearerToken = require('./validate-bearer-token')
+// const validateBearerToken = require('./validate-bearer-token')
 const errorHandler = require('./error-handler')
 const notesRouter = require('./notes/notes-router')
-const folderRouter = require('./folders/folders-router')
+const foldersRouter = require('./folders/folders-router')
 
-const app = express()
+const morganOption = NODE_ENV === 'production' ? 'tiny' : 'dev';
 
-app.use(morgan((NODE_ENV === 'production') ? 'tiny' : 'common', {
-  skip: () => NODE_ENV === 'test'
-}))
+const app = express();
+app.use(morgan(morganOption));
 app.use(helmet());
 app.use(cors());
-app.use(validateBearerToken)
+// app.use(validateBearerToken)
 
-app.use('/api/notes', notesRouter)
-app.use('/api/folders', folderRouter)
+app.use('/notes', notesRouter)
+app.use('/folders', foldersRouter)
 
 app.get('/', (req, res) => {
   res.send('Hello, beautiful!');
 });
 
+app.use(errorHandler);
 module.exports = app;

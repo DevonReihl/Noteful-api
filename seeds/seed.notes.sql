@@ -1,4 +1,9 @@
-INSERT INTO noteful_notes (name, content, modified, folderId)
+TRUNCATE noteful_notes;
+
+INSERT INTO noteful_notes (note_name, content, modified, folderId)
 VALUES
-('James Ratliff','Lorem ipsum dolor sit amet, consectetur adipisicing elit. Natus consequuntur deserunt commodi, nobis qui inventore corrupti iusto aliquid debitis unde non.Adipisci, pariatur.Molestiae, libero esse hic adipisci autem neque ?', '2100-05-22T16:28:32.615Z', 2),
-('Mary King','Lorem ipsum dolor sit amet, consectetur adipisicing elit. Natus consequuntur deserunt commodi, nobis qui inventore corrupti iusto aliquid debitis unde non.Adipisci, pariatur.Molestiae, libero esse hic adipisci autem neque ?', '2100-06-22T16:28:32.615Z', 3)
+('Note 1', 'this is note 1', '9/28/2020', 1),
+  ('Note 2', 'this is note 2', '9/29/2020', 1),
+  ('Note 3', 'this is note 3', '9/30/2020', 1),
+  ('Note 4', 'this is note 4', '10/02/2020', 2),
+  ('Note 5', 'this is note 5', '10/01/2020', 2);

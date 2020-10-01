@@ -8,7 +8,7 @@ const jsonParser = express.json()
 
 const serializeFolders = folder => ({
   id: folder.id,
-  name: xss(folder.name),
+  name: xss(folder.folder_name),
   
 })
 
@@ -24,8 +24,8 @@ foldersRouter
   .catch(next)
 })
 .post(jsonParser, (req, res, next) => {
-  const { name } = req.body
-  const newFolders = { name }
+  const {folder_name } = req.body
+  const newFolders = { folder_name }
 
   if (name == null) {
     return res.status(400).json({
@@ -47,9 +47,9 @@ foldersRouter
 })
 
 foldersRouter
-  .route('/:folder_id')
+  .route('/:folderid')
   .all((req, res, next) => {
-    FoldersService.getById(req.app.get('db'), req.params.folder_id)
+    FoldersService.getById(req.app.get('db'), req.params.folderid)
       .then(folder => {
         if (!folder) {
           return res.status(404).json({
@@ -69,7 +69,7 @@ foldersRouter
   .delete((req, res, next) => {
     FoldersService.deleteFolderss(
       req.app.get('db'),
-      req.params.folder_id
+      req.params.folderid
     )
       .then(numRoesAffected => {
         res.status(204).end()
@@ -78,8 +78,8 @@ foldersRouter
   })
 
   .patch(jsonParser, (req, res, next) => {
-    const { name } = req.body
-    const folderToUpdate = {name}
+    const { folder_name } = req.body
+    const folderToUpdate = {folder_name}
 
     const numberOfValues = Object.values(folderToUpdate).filter(Boolean).length
       if (numberOfValues === 0)
@@ -91,7 +91,7 @@ foldersRouter
       
         FoldersService.updateFolderss(
           req.app.get('db'),
-          req.params.folder_id,
+          req.params.folderid,
           folderToUpdate
         )
           .then(numRowsAffected => {

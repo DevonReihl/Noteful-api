@@ -8,7 +8,7 @@ const jsonParser = express.json()
 
 const serializeNote = note => ({
   id: note.id,
-  name: xss(note.name),
+  note_name: xss(note.note_name),
   content: xss(note.content),
   modified: note.modified,
   folderid: note.folderid
@@ -26,10 +26,10 @@ notesRouter
   .catch(next)
 })
 .post(jsonParser, (req, res, next) => {
-  const { name, content, folderid } = req.body
-  const newNote = { name, content, folderid}
+  const { note_name, content, folderid } = req.body
+  const newNote = { note_name, content, folderid}
 
-  if (name == null) {
+  if (note_name == null) {
     return res.status(400).json({
       error: { message: `Missing name in request body`}
     })
@@ -80,8 +80,8 @@ notesRouter
   })
 
   .patch(jsonParser, (req, res, next) => {
-    const { name, content } = req.body
-    const noteToUpdate = {name, content}
+    const { note_name, content } = req.body
+    const noteToUpdate = {note_name, content}
 
     const numberOfValues = Object.values(noteToUpdate).filter(Boolean).length
       if (numberOfValues === 0)
