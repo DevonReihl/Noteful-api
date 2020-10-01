@@ -8,7 +8,7 @@ const jsonParser = express.json()
 
 const serializeFolders = folder => ({
   id: folder.id,
-  name: xss(folder.folder_name),
+  folder_name: xss(folder.folder_name),
   
 })
 
@@ -27,7 +27,7 @@ foldersRouter
   const {folder_name } = req.body
   const newFolders = { folder_name }
 
-  if (name == null) {
+  if (folder_name == null) {
     return res.status(400).json({
       error: { message: `Missing name in request body`}
     })
@@ -67,7 +67,7 @@ foldersRouter
   })
 
   .delete((req, res, next) => {
-    FoldersService.deleteFolderss(
+    FoldersService.deleteFolders(
       req.app.get('db'),
       req.params.folderid
     )
