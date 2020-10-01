@@ -24,10 +24,10 @@ foldersRouter
   .catch(next)
 })
 .post(jsonParser, (req, res, next) => {
-  const {folder_name } = req.body
-  const newFolders = { folder_name }
+  const { name } = req.body
+  const newFolder = { folder_name: name }
 
-  if (folder_name == null) {
+  if (!name) {
     return res.status(400).json({
       error: { message: `Missing name in request body`}
     })
@@ -35,7 +35,7 @@ foldersRouter
 
   FoldersService.insertFolders(
     req.app.get('db'),
-    newFolders
+    newFolder
   )
     .then(folder => {
       res
@@ -71,15 +71,15 @@ foldersRouter
       req.app.get('db'),
       req.params.folderid
     )
-      .then(numRoesAffected => {
+      .then(numRowsAffected => {
         res.status(204).end()
       })
       .catch(next)
   })
 
   .patch(jsonParser, (req, res, next) => {
-    const { folder_name } = req.body
-    const folderToUpdate = {folder_name}
+    const { name } = req.body
+    const folderToUpdate = {folder_name: name }
 
     const numberOfValues = Object.values(folderToUpdate).filter(Boolean).length
       if (numberOfValues === 0)

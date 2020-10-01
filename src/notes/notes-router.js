@@ -6,7 +6,7 @@ const NoteService = require('./notes-service')
 const notesRouter = express.Router()
 const jsonParser = express.json()
 
-const serializeNote = note => ({
+const serializeNotes = note => ({
   id: note.id,
   name: xss(note.note_name),
   content: xss(note.content),
@@ -21,15 +21,16 @@ notesRouter
     req.app.get('db')
   )
   .then(notes => {
-    res.json(notes.map(serializeNote))
+    res.json(notes.map(serializeNotes))
   })
   .catch(next)
 })
 .post(jsonParser, (req, res, next) => {
-  const { note_name, content, folderid } = req.body
-  const newNote = { note_name, content, folderid}
+  console.log(req.body, 'what is here')
+  const { name, content, folderId } = req.body
+  const newNote = { note_name: name, content, folderid: folderId}
 
-  if (note_name == null) {
+  if (!name) {
     return res.status(400).json({
       error: { message: `Missing name in request body`}
     })
@@ -43,7 +44,7 @@ notesRouter
       res
         .status(201)
         .location(path.posix.join(req.originalUrl, `/${note.id}`))
-        .json(serializeNote(note))
+        .json(serializeNotes(note))
     })
     .catch(next)
 })
@@ -65,7 +66,7 @@ notesRouter
   })
 
   .get((req, res, next) => {
-    res.json(serializeNote(res.note))
+    res.json(serializeNotes(res.note))
   })
 
   .delete((req, res, next) => {
@@ -73,7 +74,7 @@ notesRouter
       req.app.get('db'),
       req.params.note_id
     )
-      .then(numRoesAffected => {
+      .then(numRowsAffected => {
         res.status(204).end()
       })
       .catch(next)
